@@ -64,7 +64,7 @@ export const wrapper = (options) => (WrappedComponent) => {
         mapComponent: this.refs.map
       })
       return (
-        <div>
+        <div className='map-container'>
           <WrappedComponent {...props} />
           <div ref='map' />
         </div>

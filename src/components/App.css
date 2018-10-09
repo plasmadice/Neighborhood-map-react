@@ -1,0 +1,22 @@
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+
+    /* display: grid;
+    grid-template-columns: 1fr; */
+}
+
+.map-container {
+    height: 100%;
+}
+
+/* .map-container {
+    grid-column-start: 3;
+    grid-column-end: -1;
+} */
+
+/* .sidebar {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    background-color: grey;
+} */

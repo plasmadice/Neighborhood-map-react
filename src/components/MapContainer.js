@@ -5,8 +5,8 @@ import Map from './Map';
 export class MapContainer extends Component {
     render() {
         const style = {
-            width: '100vw',
-            height: '100vh'
+            width: '100%',
+            height: '100%',
         }
 
         return (
