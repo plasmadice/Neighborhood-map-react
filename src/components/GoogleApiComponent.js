@@ -1,4 +1,4 @@
-import React, { PropTypes as T } from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
 import cache from '../utils/ScriptCache'
@@ -9,7 +9,7 @@ export const wrapper = (options) => (WrappedComponent) => {
   const apiKey = options.apiKey;
   const libraries = options.libraries || ['places'];
 
-  class Wrapper extends React.Component {
+  class Wrapper extends Component {
     constructor(props, context) {
       super(props, context);
 

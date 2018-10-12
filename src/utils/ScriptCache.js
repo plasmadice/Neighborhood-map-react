@@ -1,3 +1,4 @@
+/* eslint-disable */
 let counter = 0;
 let scriptMap = new Map();
 

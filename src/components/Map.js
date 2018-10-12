@@ -1,7 +1,23 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 export default class Map extends Component {
+    constructor(props) {
+        super(props)
+
+        const { lat, lng } = this.props.initialCenter;
+
+        this.state = {
+            currentLocation: {
+                lat: lat,
+                lng: lng
+            },
+            map: {}
+        }
+    }
+
+
     componentDidUpdate = (prevProps, prevState) => {
         if (prevProps.google !== this.props.google) {
           this.loadMap();
@@ -21,17 +37,30 @@ export default class Map extends Component {
             const mapRef = this.refs.map;
             const node = ReactDOM.findDOMNode(mapRef);
 
-            let zoom = 14;
-            let lat = 37.774929;
-            let lng = -122.419416;
+            let { zoom } = this.props;
+            const { lat, lng } = this.state.currentLocation;
             const center = new maps.LatLng(lat, lng);
             const mapConfig = Object.assign({}, {
               center: center,
               zoom: zoom
             })
             this.map = new maps.Map(node, mapConfig);
+            this.setState({ map: this.map })
         }
-        // ...
+    }
+
+    renderChildren = ()  => {
+        const { children } = this.props;
+    
+        if (!children) return;
+    
+        return React.Children.map(children, c => {
+          return React.cloneElement(c, {
+            map: this.map,
+            google: this.props.google,
+            mapCenter: this.state.currentLocation
+          });
+        })
     }
 
     render() {
@@ -42,8 +71,23 @@ export default class Map extends Component {
 
         return (
             <div ref='map' style={style}>
-            Loading map...
+                Loading map...
+                {this.renderChildren()}
             </div>
         )
+    }
+}
+
+Map.propTypes = {
+    google: PropTypes.object,
+    zoom: PropTypes.number,
+    initialCenter: PropTypes.object
+}
+Map.defaultProps = {
+    zoom: 13,
+    // Miami area
+    initialCenter: {
+      lat: 25.7852234,
+      lng: -80.2480662
     }
 }

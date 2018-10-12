@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const GoogleApi = function(opts) {
     opts = opts || {}
   
