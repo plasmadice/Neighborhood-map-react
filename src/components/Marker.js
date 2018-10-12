@@ -11,6 +11,12 @@ export default class Marker extends Component {
       }
     }
 
+    componentWillUnmount = () => {
+        if (this.marker) {
+            this.marker.setMap(null);
+        }
+    }
+
     renderMarker = () => {
         let {
             map,
@@ -26,7 +32,7 @@ export default class Marker extends Component {
             map: map, 
             position: position
         };
-        console.log(pref);
+        
         this.marker = new google.maps.Marker(pref);
 
         const evtNames = ['click', 'mouseover'];
