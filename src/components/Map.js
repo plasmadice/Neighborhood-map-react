@@ -3,18 +3,9 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 export default class Map extends Component {
-    constructor(props) {
-        super(props)
-
-        const { lat, lng } = this.props.initialCenter;
-
-        this.state = {
-            currentLocation: {
-                lat: lat,
-                lng: lng
-            },
-            map: {}
-        }
+    state = {
+        currentLocation: {},
+        map: {}
     }
 
 
@@ -26,6 +17,13 @@ export default class Map extends Component {
 
     componentDidMount = () => {
         this.loadMap();
+
+        const { lat, lng } = this.props.initialCenter;
+        const currentLocation = { lat, lng }
+
+        this.setState({
+            currentLocation : currentLocation
+        })
     }
 
     loadMap = () => {

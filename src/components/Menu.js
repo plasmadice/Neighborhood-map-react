@@ -11,11 +11,7 @@ export default class Menu extends Component {
         <ul className='location-list'>
           {locations.map(location => {
             return (
-              <li 
-                key={location.venueId}
-                
-                >
-                
+              <li key={location.venueId}>
                 {location.name}
               </li>
             )

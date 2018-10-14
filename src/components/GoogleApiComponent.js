@@ -24,6 +24,7 @@ export const wrapper = (options) => (WrappedComponent) => {
       const refs = this.refs;
       this.scriptCache.google.onLoad((err, tag) => {
         const maps = window.google.maps;
+        // eslint-disable-next-line
         const props = Object.assign({}, this.props, {
           loaded: this.state.loaded
         });
