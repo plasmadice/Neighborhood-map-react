@@ -67,8 +67,10 @@ export default class Map extends Component {
             height: '100%'
         }
 
+        const { onMapClick } = this.props;
+
         return (
-            <div ref='map' style={style}>
+            <div ref='map' style={style} onClick={onMapClick}>
                 Loading map...
                 {this.renderChildren()}
             </div>

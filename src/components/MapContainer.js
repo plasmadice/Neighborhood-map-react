@@ -11,23 +11,30 @@ export class MapContainer extends Component {
         selectedPlace: {}
     }
 
+    onMapClick = (e) => {
+        /* 
+         *  Triggers when the map is clicked
+         *  & the target is not an infowindow
+         *  or any of it's children
+        */
+        let iw = document.querySelector('[style*="cursor: default"]')
+
+        if (this.state.showingInfoWindow && 
+            !iw.contains(e.target) &&
+            e.target.shape !== 'poly') {
+            this.setState({
+                showingInfoWindow: false,
+                activeMarker: null
+            });
+        }
+    }
+
     onMarkerClick = (props, marker, e) => {
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true
         })
-        console.log(this.state)
-    }
-
-    onMapClick = () => {
-        console.log('Map clicked')
-        if (this.state.showingInfoWindow) {
-          this.setState({
-            showingInfoWindow: false,
-            activeMarker: null
-          });
-        }
     }
 
     render() {
@@ -40,26 +47,26 @@ export class MapContainer extends Component {
             lat: 25.7705359,
             lng: -80.1896106
         };
-
+        
         return (
-            <div style={style}>
-                <Map 
-                    google={this.props.google}
-                    onClick={this.onMapClick}>
-                    <Marker 
-                        position={pos} 
-                        onClick={this.onMarkerClick}
-                        name={'Dolores park'}/>
+            <Map 
+                onMapClick={this.onMapClick.bind(this)} 
+                google={this.props.google}
+                >
+                <Marker 
+                    position={pos} 
+                    onClick={this.onMarkerClick}
+                    name={'Dolores park'}/>
 
-                    <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}>
-                        <div>
+                <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.showingInfoWindow}
+                    onClose={this.onInfoWindowClose}>
+                        <div className="infowindow">
                             <h1>{this.state.selectedPlace.name}</h1>
                         </div>
-                    </InfoWindow>
-                </Map>
-            </div>
+                </InfoWindow>
+            </Map>
         )
     }
 }

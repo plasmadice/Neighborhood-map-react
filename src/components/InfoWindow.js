@@ -25,15 +25,28 @@ export default class InfoWindow extends Component {
         }
     }
 
-    renderInfoWindow() {
-        let { map, google, mapCenter } = this.props;
+    renderInfoWindow = () => {
+        let {map, google, mapCenter} = this.props;
     
         const iw = this.infowindow = new google.maps.InfoWindow({
           content: ''
         });
+    
+        google.maps.event
+          .addListener(iw, 'closeclick', this.onClose.bind(this))
+        google.maps.event
+          .addListener(iw, 'domready', this.onOpen.bind(this));
+    }
+    
+    onOpen = () => {
+        if (this.props.onOpen) this.props.onOpen();
+    }
+    
+    onClose = () => {
+        if (this.props.onClose) this.props.onClose();
     }
 
-    renderChildren() {
+    renderChildren = () => {
         const { children } = this.props;
         return ReactDOMServer.renderToString(children);
     }
@@ -43,12 +56,12 @@ export default class InfoWindow extends Component {
         this.infowindow.setContent(content);
     }
 
-    openWindow() {
+    openWindow = () => {
         this.infowindow
           .open(this.props.map, this.props.marker);
     }
 
-    closeWindow() {
+    closeWindow = () => {
         this.infowindow.close();
     }
     
