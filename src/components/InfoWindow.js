@@ -1,3 +1,4 @@
+/* eslint-disable-next-line */
 import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
 
@@ -26,6 +27,7 @@ export default class InfoWindow extends Component {
     }
 
     renderInfoWindow = () => {
+        /* eslint-disable-next-line */
         let {map, google, mapCenter} = this.props;
     
         const iw = this.infowindow = new google.maps.InfoWindow({

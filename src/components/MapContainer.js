@@ -51,10 +51,29 @@ export class MapContainer extends Component {
                 this.setState({
                     venueInfo: venue.response.venue
                 })
-            })
+        })
     }
 
+    generateInfoWindowContents = () => {
+        const { 
+            name,
+            attributes,
+            bestPhoto,
+            location,
+            rating,
+            likes,
+            canonicalUrl
+          } = this.state.venueInfo;
+
+        const priceTier = attributes.groups[0].summary;
+
+        return;
+    }
+
+
+
     render() {
+        console.log(this.state.venueInfo)
         
         return (
             <Map 
@@ -89,5 +108,5 @@ export class MapContainer extends Component {
 }
   
 export default GoogleApiComponent({
-    apiKey: 'AIzaSyBgc5bIV3ZvAhq0Vrj2K36m2biYLJlat9I'
+    apiKey: auth.GOOGLE_MAPS_API_KEY
 })(MapContainer)
