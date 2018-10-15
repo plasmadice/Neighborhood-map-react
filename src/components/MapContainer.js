@@ -4,12 +4,14 @@ import Map from './Map';
 import Marker from './Marker';
 import InfoWindow from './InfoWindow';
 import { locations } from '../data/locations';
+import { auth } from '../data/auth';
 
 export class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
         activeMarker: {},
-        selectedPlace: {}
+        selectedPlace: {},
+        venueInfo: {}
     }
 
     onMapClick = (e) => {
@@ -31,6 +33,8 @@ export class MapContainer extends Component {
     }
 
     onMarkerClick = (props, marker, e) => {
+        this.fetchVenueInfo(props.id);
+
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
@@ -38,12 +42,19 @@ export class MapContainer extends Component {
         })
     }
 
-    render() {
+    fetchVenueInfo = (venueId) => {
+        // Foursquare api fetch
+        fetch(`https://api.foursquare.com/v2/venues/${venueId}` +
+            `?client_id=${auth.FS_CLIENT_ID}` +
+            `&client_secret=${auth.FS_CLIENT_SECRET}` +
+            `&v=20181014`).then(res => res.json()).then(venue => {
+                this.setState({
+                    venueInfo: venue.response.venue
+                })
+            })
+    }
 
-        const pos = {        
-            lat: 25.7705359,
-            lng: -80.1896106
-        };
+    render() {
         
         return (
             <Map 
@@ -55,6 +66,7 @@ export class MapContainer extends Component {
                         return (
                             <Marker 
                                 key={venue.venueId}
+                                id={venue.venueId}
                                 position={{lat: venue.location.lat, lng: venue.location.lng}}
                                 onClick={this.onMarkerClick}
                                 name={venue.name}
