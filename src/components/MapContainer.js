@@ -3,6 +3,7 @@ import GoogleApiComponent from './GoogleApiComponent';
 import Map from './Map';
 import Marker from './Marker';
 import InfoWindow from './InfoWindow';
+import { locations } from '../data/locations';
 
 export class MapContainer extends Component {
     state = {
@@ -38,11 +39,7 @@ export class MapContainer extends Component {
     }
 
     render() {
-        const style = {
-            width: '100%',
-            height: '100%',
-        }
-        
+
         const pos = {        
             lat: 25.7705359,
             lng: -80.1896106
@@ -53,18 +50,26 @@ export class MapContainer extends Component {
                 onMapClick={this.onMapClick.bind(this)} 
                 google={this.props.google}
                 >
-                <Marker 
-                    position={pos} 
-                    onClick={this.onMarkerClick}
-                    name={'Dolores park'}/>
+                {
+                    locations.map(venue => {
+                        return (
+                            <Marker 
+                                key={venue.venueId}
+                                position={{lat: venue.location.lat, lng: venue.location.lng}}
+                                onClick={this.onMarkerClick}
+                                name={venue.name}
+                            />
+                        )
+                    })
+                }
 
                 <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
                     onClose={this.onInfoWindowClose}>
-                        <div className="infowindow">
-                            <h1>{this.state.selectedPlace.name}</h1>
-                        </div>
+                    <div className="infowindow">
+                        <h1>{this.state.selectedPlace.name}</h1>
+                    </div>
                 </InfoWindow>
             </Map>
         )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { styles } from '../data/styles.js';
 
 export default class Map extends Component {
     state = {
@@ -40,7 +41,8 @@ export default class Map extends Component {
             const center = new maps.LatLng(lat, lng);
             const mapConfig = Object.assign({}, {
               center: center,
-              zoom: zoom
+              zoom: zoom,
+              styles : styles
             })
             this.map = new maps.Map(node, mapConfig);
             this.setState({ map: this.map })
@@ -87,7 +89,7 @@ Map.defaultProps = {
     zoom: 13,
     // Miami area
     initialCenter: {
-      lat: 25.7852234,
-      lng: -80.2480662
+      lat: 25.7905157,
+      lng: -80.203466,
     }
 }

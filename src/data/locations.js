@@ -118,5 +118,15 @@ export const locations = [
       },
       venueId: '503fe16de4b09c6ce3b3bf7d',
       url: 'https://us.vapiano.com/en/magazine/'
+    },
+    {
+      name: 'Rusty Pelican',
+      location: {
+        address: '3201 Rickenbacker Causeway, Key Biscayne, FL 33149',
+        lat: 25.7478747,
+        lng: -80.1756075,
+      },
+      venueId: '4bb79e4a7421a593b1c2c040',
+      url: 'https://www.therustypelican.com/'
     }
   ]
