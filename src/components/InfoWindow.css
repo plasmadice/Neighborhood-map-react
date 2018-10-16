@@ -76,3 +76,8 @@
 .infowindow-parent div:nth-child(even) {
     display: none;
 }
+
+button .gm-ui-hover-effect {
+    width: 40px;
+    height: 40px;
+}

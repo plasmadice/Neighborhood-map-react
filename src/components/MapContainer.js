@@ -86,6 +86,7 @@ export class MapContainer extends Component {
 
     render() {
         console.log(this.state.venueInfo)
+        const venue = this.state.venueInfo;
         
         return (
             <Map 
@@ -112,16 +113,19 @@ export class MapContainer extends Component {
                     onClose={this.onInfoWindowClose}>
                         <div className='infowindow-inside-container'>
                             <div className='infowindow-icon'>
-                                <img src='' alt='' />
+                                {/* <img src={`https://igx.4sqi.net/img/general/40x40${this.state.venueInfo.bestPhoto.suffix}`} alt='' /> */}
                             </div>
                             <div className='infowindow-details'>
-                                <div className='infowindow-name'> <a href='/' target='_blank'>Name</a></div>
+                                <div className='infowindow-name'> <a href={venue.canonicalUrl} target='_blank'>{venue.name}</a></div>
                                 <div className='infowindow-address-data'>
                                     <div className='infowindow-address'>
-                                        650 S Miami Ave (SW 7th St), Miami
+                                        Somewhere in Miami
+                                    </div>
+                                    <div>
+                                        {/* {venue.contact.formattedPhone} */}
                                     </div>
                                     <p>
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                                        {venue.description}
                                     </p>
                                 </div>
                             </div>

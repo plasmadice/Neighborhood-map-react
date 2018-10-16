@@ -80,16 +80,6 @@ export const locations = [
       url: 'https://www.sugarcanerawbargrill.com/location/miami/'
     },
     {
-      name: 'Versailles',
-      location: {
-        address: '3501 SW 8th St, Miami, FL 33135',
-        lat: 25.7649372,
-        lng: -80.2524112
-      },
-      venueId: '4799b895f964a520664d1fe3',
-      url: 'https://www.versaillesbakery.com/'
-    },
-    {
       name: 'Bombay Darbar',
       location: {
         address: '2901 Florida Ave, Miami, FL 33133',
