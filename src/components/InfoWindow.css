@@ -1,0 +1,78 @@
+/* infowindow container */
+/* mapVenueTooltip rightRatingLayout*/
+.infowindow {
+    background: #fff;
+    border: 2px solid #2d5be3;
+    font-size: 13px;
+    line-height: 16px;
+    padding: 10px;
+    position: relative;
+    text-align: left;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 307px;
+    /* To fix issue caused by maps */
+    left: 0 !important;
+}
+
+.infowindow-inside-container {
+    margin: 0;
+    overflow: hidden;
+}
+
+.infowindow-icon {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: #efeff4;
+    height: 40px;
+    overflow: hidden;
+    margin-right: 10px;
+    width: 40px;
+
+    float: left;
+    line-height: 0;
+    position: relative;
+}
+
+.infowindow-icon img {
+    height: 40px;
+    width: 40px;
+}
+
+.infowindow-details {
+    padding-right: 25px;
+    width: 231px;
+    float: left;
+}
+
+.infowindow-name {
+    margin: 3px 0;
+}
+
+.infowindow-name a {
+    font-weight: 500;
+    color: #2d5be3;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.infowindow-name a:hover {
+    text-decoration: underline;
+}
+
+.infowindow-address-data {
+    min-height: inherit;
+    width: inherit;
+}
+
+.infowindow-address {
+    font-size: 13px;
+}
+
+/* remove white background and shadow of infowindow */
+.infowindow-parent div:nth-child(even) {
+    display: none;
+}

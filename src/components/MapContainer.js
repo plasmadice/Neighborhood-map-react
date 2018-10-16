@@ -40,10 +40,13 @@ export class MapContainer extends Component {
             activeMarker: marker,
             showingInfoWindow: true
         })
+
+
+        
     }
 
     fetchVenueInfo = (venueId) => {
-        // Foursquare api fetch
+        // // Foursquare api fetch
         fetch(`https://api.foursquare.com/v2/venues/${venueId}` +
             `?client_id=${auth.FS_CLIENT_ID}` +
             `&client_secret=${auth.FS_CLIENT_SECRET}` +
@@ -51,6 +54,15 @@ export class MapContainer extends Component {
                 this.setState({
                     venueInfo: venue.response.venue
                 })
+        }).then(() => {
+            let iw = document.querySelector('.gm-style-iw');
+        
+            iw.classList.add('infowindow');
+            
+            // Target parent of infowindow to remove white border
+            iw.parentElement
+                .querySelector('div')
+                .className='infowindow-parent';
         })
     }
 
@@ -98,9 +110,22 @@ export class MapContainer extends Component {
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
                     onClose={this.onInfoWindowClose}>
-                    <div className="infowindow">
-                        <h1>{this.state.selectedPlace.name}</h1>
-                    </div>
+                        <div className='infowindow-inside-container'>
+                            <div className='infowindow-icon'>
+                                <img src='' alt='' />
+                            </div>
+                            <div className='infowindow-details'>
+                                <div className='infowindow-name'> <a href='/' target='_blank'>Name</a></div>
+                                <div className='infowindow-address-data'>
+                                    <div className='infowindow-address'>
+                                        650 S Miami Ave (SW 7th St), Miami
+                                    </div>
+                                    <p>
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                 </InfoWindow>
             </Map>
         )

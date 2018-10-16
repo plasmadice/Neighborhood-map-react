@@ -1,6 +1,7 @@
 /* eslint-disable-next-line */
 import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import './InfoWindow.css';
 
 export default class InfoWindow extends Component {
     state = {
