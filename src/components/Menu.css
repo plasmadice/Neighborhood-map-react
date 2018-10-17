@@ -15,18 +15,37 @@
     transition: transform 200ms linear;
 }
 
-.location-list {
-    padding: 0;
+.side-menu a {
+    display: block;
+    color: #fff;
+    padding: 16px;
+    font-weight: 500;
+    text-decoration: none;
 }
 
-.location-list li {
-    list-style: none;
-    color: white;
-    padding: 20px 15px;
-    border-bottom: 1px dotted #1eb8e8;
+.active-link {
+    background-color: #7289da;
 }
 
-/* for revealing the menu
-.side-menu-open {
+.side-menu a:hover:not(.active-link) {
+    background-color: #555;
+    color: #fff;
+}
+
+.search-box {
+    float: none;
+    border: none;
+    margin: 16px;
+    padding: 6px;
+    font-size: 17px;
+    display: block;
+    text-align: left;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+/* for revealing the menu */
+/* .side-menu-open {
     transform: translateX(0);
 } */
