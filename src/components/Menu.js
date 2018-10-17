@@ -12,6 +12,7 @@ export default class Menu extends Component {
 
   onClick = (e) => {
     e.preventDefault();
+    console.log(e.target.key)
     e.target.classList.add('active-link');
     this.setState({ activeLink: e.target })
   }
@@ -46,23 +47,26 @@ export default class Menu extends Component {
       // console.log(locations)
       // TODO: make these links clickable, and style them
     return (
-      <div className='side-menu'>
-      <input type="text" 
-      className='search-box'
-      placeholder="Search.."
-      onChange={this.handleChange}
-      value={this.state.value}/>
-          {links.map(location => {
-            return (
-              <a 
-              href={'/'} 
-              key={location.venueId}
-              onClick={this.onClick}>
-              
-                {location.name}
-              </a>
-            )
-          })}
+      <div className='menu-map-container'>
+        <div className='side-menu'>
+          <input type="text" 
+          className='search-box'
+          placeholder="Search.."
+          onChange={this.handleChange}
+          value={this.state.value}/>
+              {links.map(location => {
+                return (
+                  <a 
+                  href={'/'} 
+                  key={location.venueId}
+                  onClick={this.onClick}>
+                  
+                    {location.name}
+                  </a>
+                )
+              })}
+        </div>
+        {this.props.children}
       </div>
     )
   }

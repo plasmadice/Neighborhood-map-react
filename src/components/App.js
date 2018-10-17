@@ -4,11 +4,14 @@ import Menu from './Menu';
 import './App.css';
 
 class App extends Component {
+    markerControl = (id) => {
+        console.log(id);
+    }
+
     render() {
 
         return (
             <div className="wrapper" role='main'>
-              <Menu />
               <MapContainer />
             </div>
         );

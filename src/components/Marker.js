@@ -41,6 +41,9 @@ export default class Marker extends Component {
         evtNames.forEach(e => {
             this.marker.addListener(e, this.handleEvent(e));
         })
+        
+        this.marker.id = this.props.id;
+        this.props.markerControl(this.marker)
     }
 
     handleEvent = (evtName) => {

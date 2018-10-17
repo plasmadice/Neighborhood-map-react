@@ -5,12 +5,13 @@ import Marker from './Marker';
 import InfoWindow from './InfoWindow';
 import { locations } from '../data/locations';
 import { auth } from '../data/auth';
+import Menu from './Menu';
 
 export class MapContainer extends Component {
     state = {
         showingInfoWindow: false,
+        markerList: [],
         activeMarker: {},
-        selectedPlace: {},
         venueInfo: {},
     }
 
@@ -36,10 +37,20 @@ export class MapContainer extends Component {
         this.fetchVenueInfo(props.id);
 
         this.setState({
-            selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true
         })        
+    }
+
+    // Grabs marker from <Marker /> and stores them in state
+    markerControl = (marker) => {
+        if (!this.state.markerList.length) {
+            this.setState((prevState) => {
+                const newMarkerList = prevState.markerList
+                newMarkerList.push(marker);
+                return { markerList: newMarkerList}
+            })
+        }
     }
 
     fetchVenueInfo = (venueId) => {
@@ -122,33 +133,37 @@ export class MapContainer extends Component {
         console.log(this.iwContents)
         
         return (
-            <Map 
-                onMapClick={this.onMapClick.bind(this)} 
-                google={this.props.google}
-                >
-                {
-                    locations.map(venue => {
-                        return (
-                            <Marker 
-                                key={venue.venueId}
-                                id={venue.venueId}
-                                position={{lat: venue.location.lat, lng: venue.location.lng}}
-                                onClick={this.onMarkerClick}
-                                name={venue.name}
-                            />
-                        )
-                    })
-                }
-
-                <InfoWindow
-                    marker={this.state.activeMarker}
-                    visible={this.state.showingInfoWindow}
-                    onClose={this.onInfoWindowClose}>
-                    {this.state.showingInfoWindow &&
-                        this.iwContents
+            <Menu
+            >
+                <Map 
+                    onMapClick={this.onMapClick.bind(this)} 
+                    google={this.props.google}
+                    >
+                    {
+                        locations.map(venue => {
+                            return (
+                                <Marker 
+                                    key={venue.venueId}
+                                    id={venue.venueId}
+                                    position={{lat: venue.location.lat, lng: venue.location.lng}}
+                                    onClick={this.onMarkerClick}
+                                    markerControl={this.markerControl}
+                                    name={venue.name}
+                                />
+                            )
+                        })
                     }
-                </InfoWindow>
-            </Map>
+
+                    <InfoWindow
+                        marker={this.state.activeMarker}
+                        visible={this.state.showingInfoWindow}
+                        onClose={this.onInfoWindowClose}>
+                        {this.state.showingInfoWindow &&
+                            this.iwContents
+                        }
+                    </InfoWindow>
+                </Map>
+            </Menu>
         )
     }
 }
