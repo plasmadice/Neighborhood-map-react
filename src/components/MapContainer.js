@@ -12,7 +12,6 @@ export class MapContainer extends Component {
         activeMarker: {},
         selectedPlace: {},
         venueInfo: {},
-        infoWindowContents: ''
     }
 
     onMapClick = (e) => {
@@ -49,6 +48,11 @@ export class MapContainer extends Component {
             `?client_id=${auth.FS_CLIENT_ID}` +
             `&client_secret=${auth.FS_CLIENT_SECRET}` +
             `&v=20181014`).then(res => res.json()).then(venue => {
+                // generate html for infowindow
+                this.generateInfoWindowContents(venue.response.venue);
+                console.log(venue);
+
+                // setState to trigger re-render
                 this.setState({
                     venueInfo: venue.response.venue
                 })
@@ -64,69 +68,58 @@ export class MapContainer extends Component {
         })
     }
 
-    generateInfoWindowContents = () => {
+    generateInfoWindowContents = (venue) => {
+        console.log(venue);
+        // const { 
+        //     name,
+        //     attributes,
+        //     bestPhoto,
+        //     location,
+        //     rating,
+        //     canonicalUrl,
+        //     contact,
+        //     description,
+        //   } = venue;
 
-        const { 
-            name,
-            attributes,
-            bestPhoto,
-            location,
-            rating,
-            canonicalUrl,
-            contact,
-            description,
-          } = this.state.venueInfo;
+        // const priceTier = attributes.groups[0].summary;
 
-        const priceTier = attributes.groups[0].summary;
-
-        let iwContents = (
-            <div className='infowindow-inside-container'>
-                <div className='infowindow-icon'>
-                    <img src={`https://igx.4sqi.net/img/general/40x40${bestPhoto.suffix}`} alt='' />
-                    <div>{priceTier}</div>
-                </div>
-                <div className='infowindow-details'>
-                    <div className='infowindow-name'>
-                        <a href={canonicalUrl} target={'_blank'}>{name}</a>
-                        <div>{rating}</div>
-                    </div>
-                    <div className='infowindow-address-data'>
-                        <div className='infowindow-address'>
-                            {location.address}
-                        </div>
-                        <div>
-                            {contact.phone}
-                        </div>
-                        <p>
-                            {description}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        );
-
-        this.setState({ infoWindowContents: iwContents})
+        // this.iwContents = (
+        //     <div className='infowindow-inside-container'>
+        //         <div className='infowindow-icon'>
+        //             <img src={`https://igx.4sqi.net/img/general/40x40${bestPhoto.suffix}`} alt='' />
+        //             <div>{priceTier}</div>
+        //         </div>
+        //         <div className='infowindow-details'>
+        //             <div className='infowindow-name'>
+        //                 <a href={canonicalUrl} target={'_blank'}>{name}</a>
+        //                 <div>{rating}</div>
+        //             </div>
+        //             <div className='infowindow-address-data'>
+        //                 <div className='infowindow-address'>
+        //                     {location.address}
+        //                 </div>
+        //                 <div>
+        //                     {contact.phone}
+        //                 </div>
+        //                 <p>
+        //                     {description}
+        //                 </p>
+        //             </div>
+        //         </div>
+        //     </div>
+        // );
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        console.log(this.state.venueInfo.name !== undefined && 
-            this.state.infoWindowContents === '');
-        console.log((this.state.activeMarker !== prevState.activeMarker) &&
-        this.state.infoWindowContents !== '')
-        if (this.state.venueInfo.name !== undefined && 
-            this.state.infoWindowContents === '') {
+        console.log(prevProps);
+        if (this.state.showingInfoWindow) {
             this.generateInfoWindowContents();
-        }
-        if ((this.state.activeMarker !== prevState.activeMarker) &&
-            this.state.infoWindowContents !== '') {
-            if (this.state.venueInfo.id !== prevState.venueInfo.id) {
-                this.generateInfoWindowContents();
-            }
         }
     }
 
     render() {
         console.log(this.state.venueInfo)
+        console.log(this.iwContents)
         
         return (
             <Map 
@@ -152,7 +145,7 @@ export class MapContainer extends Component {
                     visible={this.state.showingInfoWindow}
                     onClose={this.onInfoWindowClose}>
                     {this.state.showingInfoWindow &&
-                        this.state.infoWindowContents
+                        this.iwContents
                     }
                 </InfoWindow>
             </Map>
