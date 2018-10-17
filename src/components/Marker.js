@@ -43,7 +43,7 @@ export default class Marker extends Component {
         })
         
         this.marker.id = this.props.id;
-        this.props.markerControl(this.marker)
+        this.props.markerListPopulate(this.marker)
     }
 
     handleEvent = (evtName) => {

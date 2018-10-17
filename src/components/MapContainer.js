@@ -43,7 +43,7 @@ export class MapContainer extends Component {
     }
 
     // Grabs marker from <Marker /> and stores them in state
-    markerControl = (marker) => {
+    markerListPopulate = (marker) => {
         if (!this.state.markerList.length) {
             this.setState((prevState) => {
                 const newMarkerList = prevState.markerList
@@ -147,7 +147,7 @@ export class MapContainer extends Component {
                                     id={venue.venueId}
                                     position={{lat: venue.location.lat, lng: venue.location.lng}}
                                     onClick={this.onMarkerClick}
-                                    markerControl={this.markerControl}
+                                    markerListPopulate={this.markerListPopulate}
                                     name={venue.name}
                                 />
                             )
