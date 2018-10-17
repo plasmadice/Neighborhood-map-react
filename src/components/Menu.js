@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Menu.css';
-import { locations } from '../data/locations';
+// import { locations } from '../data/locations';
 
 export default class Menu extends Component {
   state = {
@@ -30,6 +30,7 @@ export default class Menu extends Component {
   }
 
   componentDidMount = () => {
+    const { locations } = this.props;
     this.setState({ venues: locations, links: locations })
   }
 
@@ -44,8 +45,7 @@ export default class Menu extends Component {
 
   render() {
     const { links } = this.state;
-      // console.log(locations)
-      // TODO: make these links clickable, and style them
+
     return (
       <div className='menu-map-container'>
         <div className='side-menu'>
