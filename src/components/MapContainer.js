@@ -11,7 +11,8 @@ export class MapContainer extends Component {
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {},
-        venueInfo: {}
+        venueInfo: {},
+        infoWindowContents: ''
     }
 
     onMapClick = (e) => {
@@ -39,10 +40,7 @@ export class MapContainer extends Component {
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true
-        })
-
-
-        
+        })        
     }
 
     fetchVenueInfo = (venueId) => {
@@ -55,11 +53,11 @@ export class MapContainer extends Component {
                     venueInfo: venue.response.venue
                 })
         }).then(() => {
+            // Remove white border and shadow from default infowindows
+            // Removal is done via InfoWindow.css
             let iw = document.querySelector('.gm-style-iw');
-        
             iw.classList.add('infowindow');
-            
-            // Target parent of infowindow to remove white border
+
             iw.parentElement
                 .querySelector('div')
                 .className='infowindow-parent';
@@ -67,26 +65,68 @@ export class MapContainer extends Component {
     }
 
     generateInfoWindowContents = () => {
+
         const { 
             name,
             attributes,
             bestPhoto,
             location,
             rating,
-            likes,
-            canonicalUrl
+            canonicalUrl,
+            contact,
+            description,
           } = this.state.venueInfo;
 
         const priceTier = attributes.groups[0].summary;
 
-        return;
+        let iwContents = (
+            <div className='infowindow-inside-container'>
+                <div className='infowindow-icon'>
+                    <img src={`https://igx.4sqi.net/img/general/40x40${bestPhoto.suffix}`} alt='' />
+                    <div>{priceTier}</div>
+                </div>
+                <div className='infowindow-details'>
+                    <div className='infowindow-name'>
+                        <a href={canonicalUrl} target={'_blank'}>{name}</a>
+                        <div>{rating}</div>
+                    </div>
+                    <div className='infowindow-address-data'>
+                        <div className='infowindow-address'>
+                            {location.address}
+                        </div>
+                        <div>
+                            {contact.phone}
+                        </div>
+                        <p>
+                            {description}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        this.setState({ infoWindowContents: iwContents})
     }
 
-
+    componentDidUpdate = (prevProps, prevState) => {
+        console.log(this.state.venueInfo.name !== undefined && 
+            this.state.infoWindowContents === '');
+        console.log((this.state.activeMarker !== prevState.activeMarker) &&
+        this.state.infoWindowContents !== '')
+        if (this.state.venueInfo.name !== undefined && 
+            this.state.infoWindowContents === '') {
+            this.generateInfoWindowContents();
+        }
+        if ((this.state.activeMarker !== prevState.activeMarker) &&
+            this.state.infoWindowContents !== '') {
+            if (this.state.venueInfo.id !== prevState.venueInfo.id) {
+                this.generateInfoWindowContents();
+            }
+        }
+    }
 
     render() {
         console.log(this.state.venueInfo)
-        const venue = this.state.venueInfo;
         
         return (
             <Map 
@@ -111,25 +151,9 @@ export class MapContainer extends Component {
                     marker={this.state.activeMarker}
                     visible={this.state.showingInfoWindow}
                     onClose={this.onInfoWindowClose}>
-                        <div className='infowindow-inside-container'>
-                            <div className='infowindow-icon'>
-                                {/* <img src={`https://igx.4sqi.net/img/general/40x40${this.state.venueInfo.bestPhoto.suffix}`} alt='' /> */}
-                            </div>
-                            <div className='infowindow-details'>
-                                <div className='infowindow-name'> <a href={venue.canonicalUrl} target='_blank'>{venue.name}</a></div>
-                                <div className='infowindow-address-data'>
-                                    <div className='infowindow-address'>
-                                        Somewhere in Miami
-                                    </div>
-                                    <div>
-                                        {/* {venue.contact.formattedPhone} */}
-                                    </div>
-                                    <p>
-                                        {venue.description}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    {this.state.showingInfoWindow &&
+                        this.state.infoWindowContents
+                    }
                 </InfoWindow>
             </Map>
         )
