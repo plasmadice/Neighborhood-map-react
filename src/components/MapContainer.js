@@ -34,12 +34,12 @@ export class MapContainer extends Component {
     }
 
     onMarkerClick = (props, marker, e) => {
-        this.fetchVenueInfo(props.id);
-
         this.setState({
             activeMarker: marker,
             showingInfoWindow: true
         })
+
+        this.fetchVenueInfo(props.id);
     }
 
     // Grabs marker from <Marker /> and stores them in state
@@ -64,9 +64,7 @@ export class MapContainer extends Component {
                 console.log(venue);
 
                 // setState to trigger re-render
-                this.setState({
-                    venueInfo: venue.response.venue
-                })
+                this.setState({ venueInfo: venue.response.venue })
         }).then(() => {
             // Remove white border and shadow from default infowindows
             // Removal is done via InfoWindow.css
@@ -94,55 +92,47 @@ export class MapContainer extends Component {
 
     generateInfoWindowContents = (venue) => {
         console.log(venue);
+
+        const { 
+            name,
+            attributes,
+            bestPhoto,
+            location,
+            rating,
+            canonicalUrl,
+            contact,
+            description,
+          } = venue;
+
+        const priceTier = attributes.groups[0].summary;
+
         this.iwContents = (
-            <div>random</div>
-        )
-        // const { 
-        //     name,
-        //     attributes,
-        //     bestPhoto,
-        //     location,
-        //     rating,
-        //     canonicalUrl,
-        //     contact,
-        //     description,
-        //   } = venue;
-
-        // const priceTier = attributes.groups[0].summary;
-
-        // this.iwContents = (
-        //     <div className='infowindow-inside-container'>
-        //         <div className='infowindow-icon'>
-        //             <img src={`https://igx.4sqi.net/img/general/40x40${bestPhoto.suffix}`} alt='' />
-        //             <div>{priceTier}</div>
-        //         </div>
-        //         <div className='infowindow-details'>
-        //             <div className='infowindow-name'>
-        //                 <a href={canonicalUrl} target={'_blank'}>{name}</a>
-        //                 <div>{rating}</div>
-        //             </div>
-        //             <div className='infowindow-address-data'>
-        //                 <div className='infowindow-address'>
-        //                     {location.address}
-        //                 </div>
-        //                 <div>
-        //                     {contact.phone}
-        //                 </div>
-        //                 <p>
-        //                     {description}
-        //                 </p>
-        //             </div>
-        //         </div>
-        //     </div>
-        // );
+            <div className='infowindow-inside-container'>
+                <div className='infowindow-icon'>
+                    <img src={`https://igx.4sqi.net/img/general/40x40${bestPhoto.suffix}`} alt='' />
+                    <div>{priceTier}</div>
+                </div>
+                <div className='infowindow-details'>
+                    <div className='infowindow-name'>
+                        <a href={canonicalUrl} target={'_blank'}>{name}</a>
+                        <div>{rating}</div>
+                    </div>
+                    <div className='infowindow-address-data'>
+                        <div className='infowindow-address'>
+                            {location.address}
+                        </div>
+                        <div>
+                            {contact.phone}
+                        </div>
+                        <p>
+                            {description}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
     }
-
-    componentDidUpdate = (prevProps, prevState) => {
-        if (this.state.showingInfoWindow) {
-            this.generateInfoWindowContents();
-        }
-    }
-
+    
     render() {
         console.log(this.state.venueInfo)
         
