@@ -4,6 +4,9 @@ import ReactDOMServer from 'react-dom/server';
 import './InfoWindow.css';
 
 export default class InfoWindow extends Component {
+    state = {
+        infowindow: {}
+    }
 
     componentDidUpdate(prevProps, prevState) {
         // TODO: Figure out if this is 
@@ -15,13 +18,11 @@ export default class InfoWindow extends Component {
         
         if ((this.props.children !== prevProps.children) && 
         this.infowindow) {
-            
             this.updateContent();
         }
         
         if ((this.props.visible !== prevProps.visible) ||
         (this.props.marker !== prevProps.marker)) {
-            console.log('update')
             this.props.visible ?
             this.openWindow() :
             this.closeWindow();
@@ -40,6 +41,7 @@ export default class InfoWindow extends Component {
           .addListener(iw, 'closeclick', this.onClose.bind(this))
         google.maps.event
           .addListener(iw, 'domready', this.onOpen.bind(this));
+        this.setState({ infowindow: iw})
     }
     
     onOpen = () => {
@@ -61,8 +63,13 @@ export default class InfoWindow extends Component {
     }
 
     openWindow = () => {
+        console.log('openWindow', this.props.marker)
         this.infowindow
           .open(this.props.map, this.props.marker);
+        this.infowindow.setPosition({
+            lat: this.props.marker.position.lat(), 
+            lng: this.props.marker.position.lng()
+        })
     }
 
     closeWindow = () => {

@@ -6,7 +6,6 @@ import { styles } from '../data/styles.js';
 export default class Map extends Component {
     state = {
         currentLocation: {},
-        map: {}
     }
 
 
@@ -20,7 +19,7 @@ export default class Map extends Component {
         this.loadMap();
 
         const { lat, lng } = this.props.initialCenter;
-        const currentLocation = { lat, lng }
+        const currentLocation = { lat, lng };
 
         this.setState({
             currentLocation : currentLocation
@@ -45,7 +44,6 @@ export default class Map extends Component {
               styles : styles
             })
             this.map = new maps.Map(node, mapConfig);
-            this.setState({ map: this.map })
         }
     }
 
@@ -53,13 +51,13 @@ export default class Map extends Component {
         const { children } = this.props;
     
         if (!children) return;
-    
+
         return React.Children.map(children, c => {
-          return React.cloneElement(c, {
-            map: this.map,
-            google: this.props.google,
-            mapCenter: this.state.currentLocation
-          });
+            return React.cloneElement(c, {
+                map: this.map,
+                google: this.props.google,
+                mapCenter: this.state.currentLocation
+            });
         })
     }
 
