@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Menu.css';
-// import { locations } from '../data/locations';
 
 export default class Menu extends Component {
   state = {
@@ -10,11 +9,13 @@ export default class Menu extends Component {
     activeLink: null,
   }
 
-  onClick = (e) => {
+  onClick = (e, location, marker) => {
     e.preventDefault();
-    console.log(e.target.key)
     e.target.classList.add('active-link');
     this.setState({ activeLink: e.target })
+
+    // activate onMarkerClick in <MapContainer />
+    this.props.onVenueClick(location, marker)
   }
 
   handleChange = (e) => {
@@ -59,8 +60,7 @@ export default class Menu extends Component {
                   <a 
                   href={'/'} 
                   key={location.venueId}
-                  onClick={this.onClick}>
-                  
+                  onClick={(e) => this.onClick(e, location.marker, location.marker)}>
                     {location.name}
                   </a>
                 )

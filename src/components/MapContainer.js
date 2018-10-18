@@ -39,7 +39,7 @@ export class MapContainer extends Component {
         this.setState({
             activeMarker: marker,
             showingInfoWindow: true
-        })        
+        })
     }
 
     // Grabs marker from <Marker /> and stores them in state
@@ -94,6 +94,9 @@ export class MapContainer extends Component {
 
     generateInfoWindowContents = (venue) => {
         console.log(venue);
+        this.iwContents = (
+            <div>random</div>
+        )
         // const { 
         //     name,
         //     attributes,
@@ -135,7 +138,6 @@ export class MapContainer extends Component {
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        console.log(prevProps);
         if (this.state.showingInfoWindow) {
             this.generateInfoWindowContents();
         }
@@ -143,10 +145,10 @@ export class MapContainer extends Component {
 
     render() {
         console.log(this.state.venueInfo)
-        console.log(this.iwContents)
         
         return (
             <Menu
+            onVenueClick={this.onMarkerClick}
             locations={this.locationMarkerFuse()}
             >
                 <Map 
@@ -173,8 +175,7 @@ export class MapContainer extends Component {
                         visible={this.state.showingInfoWindow}
                         onClose={this.onInfoWindowClose}>
                         {this.state.showingInfoWindow &&
-                            this.iwContents
-                        }
+                            this.iwContents}
                     </InfoWindow>
                 </Map>
             </Menu>

@@ -4,26 +4,27 @@ import ReactDOMServer from 'react-dom/server';
 import './InfoWindow.css';
 
 export default class InfoWindow extends Component {
-    state = {
-        infowindow: {},
-    }
 
     componentDidUpdate(prevProps, prevState) {
+        // TODO: Figure out if this is 
+        // how the infowindow spawns
+        // link click not working
         if (this.props.map !== prevProps.map) {
-          this.renderInfoWindow();
+            this.renderInfoWindow();
         }
-
+        
         if ((this.props.children !== prevProps.children) && 
-            this.infowindow) {
-
+        this.infowindow) {
+            
             this.updateContent();
         }
-
+        
         if ((this.props.visible !== prevProps.visible) ||
-            (this.props.marker !== prevProps.marker)) {
+        (this.props.marker !== prevProps.marker)) {
+            console.log('update')
             this.props.visible ?
-                this.openWindow() :
-                this.closeWindow();
+            this.openWindow() :
+            this.closeWindow();
         }
     }
 
