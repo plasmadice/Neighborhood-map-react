@@ -146,7 +146,7 @@ export const bmStyles = {
     bmCrossButton: {
       height: '24px',
       width: '24px',
-      right: '14px'
+      right: '-2px'
     },
 
     bmCross: {

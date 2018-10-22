@@ -4,7 +4,7 @@ import Map from './components/Map';
 class App extends Component {
     render() {
         return (
-            <div role='application'>
+            <div>
                 <Map />
             </div>
         );

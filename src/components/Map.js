@@ -224,7 +224,7 @@ class Map extends Component {
             hideMarkers={this.hideMarkers}
             populateInfoWindow={this.populateInfoWindow}
             />
-            <div id='map' className='map'></div>
+            <div id='map' className='map' role='application'></div>
         </div>
         )
     }

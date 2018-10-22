@@ -11,6 +11,12 @@
     text-decoration: none;
 }
 
+.bm-title {
+    text-align: center;
+    color: #ffffff;
+    margin: 5px;
+}
+
 .bm-form {
     display: flex;
     flex-direction: column;

@@ -54,6 +54,11 @@ class Menu extends Component {
       styles={bmStyles}
       isOpen={this.state.isOpen}>
           <form className='bm-form' onSubmit={(e) => {hideMarkers(mapMarkers); addMarkers(map, filteredMarkers, infowindow); e.preventDefault()}} >
+            <h1 className='bm-title' 
+              style={window.innerWidth > 767 ? 
+              {fontSize: '1.1em'} : {fontSize: '1em'}}>
+              Neighborhood Map - React
+            </h1>
             <input 
               className='search-box' 
               aria-label='search' 
