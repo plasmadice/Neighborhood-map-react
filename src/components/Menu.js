@@ -56,16 +56,25 @@ class Menu extends Component {
           <form className='bm-form' onSubmit={(e) => {hideMarkers(mapMarkers); addMarkers(map, filteredMarkers, infowindow); e.preventDefault()}} >
             <h1 className='bm-title' 
               style={window.innerWidth > 767 ? 
-              {fontSize: '1.1em'} : {fontSize: '1em'}}>
+              {fontSize: '1.1em'} : {fontSize: '1em'}}
+              aria-labelledby='title-description'
+              tabIndex='0' >
               Neighborhood Map - React
             </h1>
+            <label id='title-description' className='aria-labels'>
+              Neighborhood Map Side Menu
+            </label>
             <input 
               className='search-box' 
               aria-label='search' 
               type='text' 
               value={query} 
               placeholder='Restaurant location' 
-              onChange={this.updateQuery} />
+              onChange={this.updateQuery} 
+              aria-labelledby='search-box'/>
+            <label id='search-box' className='aria-labels'>
+                Search and Filter from hardcoded list
+            </label>
             <input className='search-filter' 
               type='submit' 
               value='Filter' />

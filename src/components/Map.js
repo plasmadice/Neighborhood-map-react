@@ -224,7 +224,11 @@ class Map extends Component {
             hideMarkers={this.hideMarkers}
             populateInfoWindow={this.populateInfoWindow}
             />
-            <div id='map' className='map' role='application'></div>
+            <div id='map' className='map' role='application' tabIndex='-1'
+            aria-labelledby="aria-map-description" aria-hidden="true"></div>
+            <label id="aria-map-description" className="aria-labels">
+                map user interface
+            </label>
         </div>
         )
     }
