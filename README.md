@@ -1,5 +1,5 @@
 # Udacity Neighborhood Map Project Overview
-This is the final project for the Udacity Grow With Google scholarship course. It demonstrates quite a few things. Most notably accessibility, usability, and responsiveness. The app works on all modern devices and can be navigated with a screen reader.
+This is the final project for the Udacity Grow With Google scholarship course. It demonstrates quite a few things. Most notably accessibility, usability, and responsiveness. The app works on all modern devices and can be navigated with a screen reader. I decided to try `window.innerWidth` instead of media queries for responsiveness.
 
 ## How it Works // Getting Started
 To start: Clone this repository and `cd` into the root folder.

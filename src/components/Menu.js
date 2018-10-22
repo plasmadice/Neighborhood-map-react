@@ -50,6 +50,7 @@ class Menu extends Component {
 
     return (
       <BurgerMenu
+      width={(window.innerWidth > 767) ? 280 : 260}
       styles={bmStyles}
       isOpen={this.state.isOpen}>
           <form className='bm-form' onSubmit={(e) => {hideMarkers(mapMarkers); addMarkers(map, filteredMarkers, infowindow); e.preventDefault()}} >
