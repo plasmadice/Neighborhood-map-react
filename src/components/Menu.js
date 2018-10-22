@@ -19,7 +19,7 @@ class Menu extends Component {
 
 
   updateQuery = (event) => {
-    this.setState({query: event.target.value})
+    this.setState({ query: event.target.value })
   }
 
   // reset all markers in the map to default icons.
@@ -50,51 +50,51 @@ class Menu extends Component {
 
     return (
       <BurgerMenu
-      width={(window.innerWidth > 767) ? 280 : 260}
-      styles={bmStyles}
-      isOpen={this.state.isOpen}>
-          <form className='bm-form' onSubmit={(e) => {hideMarkers(mapMarkers); addMarkers(map, filteredMarkers, infowindow); e.preventDefault()}} >
-            <h1 className='bm-title' 
-              style={window.innerWidth > 767 ? 
-              {fontSize: '1.1em'} : {fontSize: '1em'}}
-              aria-labelledby='title-description'
-              tabIndex='0' >
-              Neighborhood Map - React
-            </h1>
-            <label id='title-description' className='aria-labels'>
-              Neighborhood Map Side Menu
-            </label>
-            <input 
-              className='search-box' 
-              aria-label='search' 
-              type='text' 
-              value={query} 
-              placeholder='Restaurant location' 
-              onChange={this.updateQuery} 
-              aria-labelledby='search-box'/>
-            <label id='search-box' className='aria-labels'>
-                Search and Filter from hardcoded list
-            </label>
-            <input className='search-filter' 
-              type='submit' 
-              value='Filter' />
+        width={(window.innerWidth > 767) ? 280 : 260}
+        styles={bmStyles}
+        isOpen={this.state.isOpen}>
+        <form className='bm-form' onSubmit={(e) => { hideMarkers(mapMarkers); addMarkers(map, filteredMarkers, infowindow); e.preventDefault() }} >
+          <h1 className='bm-title'
+            style={window.innerWidth > 767 ?
+              { fontSize: '1.1em' } : { fontSize: '1em' }}
+            aria-labelledby='title-description'
+            tabIndex='0' >
+            Neighborhood Map - React
+              </h1>
+          <label id='title-description' className='aria-labels'>
+            Neighborhood Map Side Menu
+              </label>
+          <input
+            className='search-box'
+            aria-label='search'
+            type='text'
+            value={query}
+            placeholder='Restaurant location'
+            onChange={this.updateQuery}
+            aria-labelledby='search-box' />
+          <label id='search-box' className='aria-labels'>
+            Search and Filter from hardcoded list
+                  </label>
+          <input className='search-filter'
+            type='submit'
+            value='Filter' />
         </form>
         <ul
-        className='bm-list'>
+          className='bm-list'>
           {filteredMapMarkers.map(mapMarker => (
             // aria-labelledby
             // and labels
-            <li 
+            <li
               className='menu-item'
-              key={mapMarker.name} 
-              tabIndex='0' 
+              key={mapMarker.name}
+              tabIndex='0'
               onClick={() => {
                 this.setState({ isOpen: false })
                 populateInfoWindow(mapMarker, infowindow, map)
               }}
-              onMouseOver={() => mapMarker.setIcon(highlightedIcon)} onMouseOut={() => {mapMarker.setIcon(defaultIcon)}}
-              onFocus={() => {this.resetMarkerIcons(mapMarkers, defaultIcon); mapMarker.setIcon(highlightedIcon)}}
-              onKeyPress={(event) => {if (event.key === 'Enter') populateInfoWindow(mapMarker, infowindow, map)}} >
+              onMouseOver={() => mapMarker.setIcon(highlightedIcon)} onMouseOut={() => { mapMarker.setIcon(defaultIcon) }}
+              onFocus={() => { this.resetMarkerIcons(mapMarkers, defaultIcon); mapMarker.setIcon(highlightedIcon) }}
+              onKeyPress={(event) => { if (event.key === 'Enter') populateInfoWindow(mapMarker, infowindow, map) }} >
               {mapMarker.name}
             </li>
           ))}

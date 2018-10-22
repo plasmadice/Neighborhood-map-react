@@ -5,7 +5,7 @@
 
 .bm-list li {
     display: block;
-    color: #fff;
+    color: #ffffff;
     padding: 16px;
     font-weight: 500;
     text-decoration: none;
@@ -66,6 +66,6 @@
     display: block;
     text-align: left;
     width: 80%;
-    border: 1px solid #ccc;
+    border: 1px solid #cccccc;
     border-radius: 2px;
 }

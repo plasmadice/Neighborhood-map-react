@@ -18,15 +18,15 @@ class Map extends Component {
 
     initMap = (center) => {
         return new window.google.maps.Map(document.getElementById('map'), {
-        center: center.location,
-        zoom: 13,
-        styles: styles
+            center: center.location,
+            zoom: 13,
+            styles: styles
         })
     }
 
     hideMarkers = (mapMarkers) => {
         mapMarkers.forEach((mapMarker) => {
-        mapMarker.setMap(null);
+            mapMarker.setMap(null);
         })
     }
 
@@ -59,7 +59,7 @@ class Map extends Component {
             mapMarkers.push(newMarker);
 
             // Add eventlistener that generates the infowindow on click
-            newMarker.addListener('click', function() {
+            newMarker.addListener('click', function () {
                 this1.populateInfoWindow(newMarker, infowindow, map);
             })
 
@@ -67,19 +67,19 @@ class Map extends Component {
              * Adds two listeners, one for mouseover, one for mouseout.
              * Effectively creates a toggle for the colors
              */
-            newMarker.addListener('mouseover', function() {
+            newMarker.addListener('mouseover', function () {
                 this.setIcon(highlightedIcon);
             })
 
-            newMarker.addListener('mouseout', function() {
+            newMarker.addListener('mouseout', function () {
                 this.setIcon(defaultIcon);
             })
 
         })
 
         this.setState({
-            mapMarkers: mapMarkers, 
-            defaultIcon: defaultIcon, 
+            mapMarkers: mapMarkers,
+            defaultIcon: defaultIcon,
             highlightedIcon: highlightedIcon
         });
 
@@ -88,10 +88,10 @@ class Map extends Component {
     makeMarkerIcon = (markerColor) => {
         let image = {
             url: 'https://www.google.com/maps/vt/icon/name=assets/icons/spotlight/' +
-            'spotlight_pin_v2_shadow-1-small.png,assets/icons/spotlight/' +
-            'spotlight_pin_v2-1-small.png,assets/icons/spotlight/spotlight_pin_v2_dot-1-small.png,assets/' +
-            'icons/spotlight/spotlight_pin_v2_accent-1-small.png&highlight=ff000000,' + 
-            `${markerColor},ff000000&color=ff000000?scale=2`,
+                'spotlight_pin_v2_shadow-1-small.png,assets/icons/spotlight/' +
+                'spotlight_pin_v2-1-small.png,assets/icons/spotlight/spotlight_pin_v2_dot-1-small.png,assets/' +
+                'icons/spotlight/spotlight_pin_v2_accent-1-small.png&highlight=ff000000,' +
+                `${markerColor},ff000000&color=ff000000?scale=2`,
             origin: new window.google.maps.Point(0, 0),
             anchor: new window.google.maps.Point(13, 42),
             scaledSize: new window.google.maps.Size(26, 44)
@@ -108,18 +108,18 @@ class Map extends Component {
             `&v=20181014`).then(res => res.json()).then(venue => {
                 // generate html for infowindow
                 this.setInfoWindowContent(marker, infowindow, map, venue.response.venue);
-        }).then(() => {
-            /*
-            * Remove white border and shadow from default maps infowindows
-            * Must be done AFTER the infowindow renders
-             */
-            let iw = document.querySelector('.gm-style-iw');
-            iw.classList.add('infowindow');
+            }).then(() => {
+                /*
+                * Remove white border and shadow from default maps infowindows
+                * Must be done AFTER the infowindow renders
+                 */
+                let iw = document.querySelector('.gm-style-iw');
+                iw.classList.add('infowindow');
 
-            iw.parentElement
-                .querySelector('div')
-                .className='infowindow-parent';
-        })
+                iw.parentElement
+                    .querySelector('div')
+                    .className = 'infowindow-parent';
+            })
     }
 
     // populates this.infowindow and empties it when done
@@ -183,7 +183,7 @@ class Map extends Component {
     initSetup = () => {
         // hard coded center location.
         const initialCenter = {
-            title: 'Miami', 
+            title: 'Miami',
             location: {
                 lat: 25.7677804,
                 lng: -80.213187,
@@ -191,12 +191,12 @@ class Map extends Component {
         }
 
         let map = this.initMap(initialCenter)
-        let infowindow = new window.google.maps.InfoWindow({maxWidth: 200})
+        let infowindow = new window.google.maps.InfoWindow({ maxWidth: 200 })
         this.addMarkers(map, locations, infowindow)
         this.setState({
-            map: map, 
-            markers: locations, 
-            center: initialCenter, 
+            map: map,
+            markers: locations,
+            center: initialCenter,
             infowindow: infowindow
         })
     }
@@ -204,32 +204,32 @@ class Map extends Component {
     componentDidMount() {
         window.initSetup = this.initSetup;
         loadMapAsync('https://maps.googleapis.com/maps/api/js?' +
-        'key=AIzaSyBvM-jU8M1YuK6iAwA-Eh94FskaD-VHFis&v=3&callback=initSetup')
+            'key=AIzaSyBvM-jU8M1YuK6iAwA-Eh94FskaD-VHFis&v=3&callback=initSetup')
     }
 
     render() {
-        const { map, markers, mapMarkers, infowindow, 
+        const { map, markers, mapMarkers, infowindow,
             defaultIcon, highlightedIcon } = this.state
 
         return (
-        <div>
-            <Menu
-            map={map}
-            infowindow={infowindow}
-            markers={markers}
-            mapMarkers={mapMarkers}
-            defaultIcon={defaultIcon}
-            highlightedIcon={highlightedIcon}
-            addMarkers={this.addMarkers}
-            hideMarkers={this.hideMarkers}
-            populateInfoWindow={this.populateInfoWindow}
-            />
-            <div id='map' className='map' role='application' tabIndex='-1'
-            aria-labelledby="aria-map-description" aria-hidden="true"></div>
-            <label id="aria-map-description" className="aria-labels">
-                map user interface
+            <div>
+                <Menu
+                    map={map}
+                    infowindow={infowindow}
+                    markers={markers}
+                    mapMarkers={mapMarkers}
+                    defaultIcon={defaultIcon}
+                    highlightedIcon={highlightedIcon}
+                    addMarkers={this.addMarkers}
+                    hideMarkers={this.hideMarkers}
+                    populateInfoWindow={this.populateInfoWindow}
+                />
+                <div id='map' className='map' role='application' tabIndex='-1'
+                    aria-labelledby="aria-map-description" aria-hidden="true"></div>
+                <label id="aria-map-description" className="aria-labels">
+                    map user interface
             </label>
-        </div>
+            </div>
         )
     }
 }
@@ -238,13 +238,13 @@ export default Map;
 
 // load Google map asynchronously
 function loadMapAsync(src) {
-  var s = document.createElement('script')
-  s.type = 'text/javascript'
-  s.async = true
-  s.src = src
-  s.onerror = () => {
-    alert('Google Map API can not be loaded.')
-  }
-  var x = document.getElementsByTagName('script')[0]
-  x.parentNode.insertBefore(s, x)
+    var s = document.createElement('script')
+    s.type = 'text/javascript'
+    s.async = true
+    s.src = src
+    s.onerror = () => {
+        alert('Google Map API can not be loaded.')
+    }
+    var x = document.getElementsByTagName('script')[0]
+    x.parentNode.insertBefore(s, x)
 }

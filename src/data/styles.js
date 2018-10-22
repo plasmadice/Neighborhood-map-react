@@ -1,3 +1,4 @@
+// Map styles courtesy of https://snazzymaps.com/
 export const styles = [
     {
         "featureType": "water",
@@ -129,6 +130,8 @@ export const styles = [
         ]
     }
 ]
+
+// Menu styles courtesy of https://github.com/negomi/react-burger-menu
 
 export const bmStyles = {
     bmBurgerButton: {

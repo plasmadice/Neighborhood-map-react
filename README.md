@@ -11,6 +11,7 @@ Run `npm build` to get a production build followed by `serve -s build`
 
 ## Credit
 APIs used: [Google Maps](https://cloud.google.com/maps-platform/) && [Foursquare](https://foursquare.com)
+[Snazzy Maps](https://snazzymaps.com/) for the map styles
 [Burger Menu](https://negomi.github.io/react-burger-menu/)
 [Tutorial Source](https://www.fullstackreact.com/articles/how-to-write-a-google-maps-react-component/): Ended up not using this, but was still very informative nonetheless
 Filter button styles from [BestCSSButtonGenerator](https://www.bestcssbuttongenerator.com/)
