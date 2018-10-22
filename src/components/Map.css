@@ -1,3 +1,10 @@
+.map {
+    display: inline-block;
+    width: 100%;
+    height: 100vh;
+    vertical-align: top;
+}
+
 /* infowindow container */
 /* mapVenueTooltip rightRatingLayout*/
 .infowindow {
@@ -13,7 +20,7 @@
     border-radius: 3px;
     cursor: pointer;
     width: 307px;
-    /* To fix issue caused by maps */
+    /* To fix issue caused by maps moving exit button */
     left: 0 !important;
 }
 
@@ -27,10 +34,10 @@
     -webkit-border-radius: 3px;
     border-radius: 3px;
     background: #efeff4;
-    height: 40px;
     overflow: hidden;
-    margin-right: 10px;
-    width: 40px;
+    margin: 0 10px 10px 0;
+    height: 80px;
+    width: 80px;
 
     float: left;
     line-height: 0;
@@ -38,13 +45,12 @@
 }
 
 .infowindow-icon img {
-    height: 40px;
-    width: 40px;
+    height: 80px;
+    width: 80px;
 }
 
 .infowindow-details {
-    padding-right: 25px;
-    width: 231px;
+    width: 223px;
     float: left;
 }
 
@@ -63,13 +69,18 @@
     text-decoration: underline;
 }
 
+.infowindow-rating {
+    margin: 3px 0;
+    text-align: center;
+}
+
+.hours, .infowindow-address, .infowindow-phone {
+    font-size: 0.7rem;
+}
+
 .infowindow-address-data {
     min-height: inherit;
     width: inherit;
-}
-
-.infowindow-address {
-    font-size: 13px;
 }
 
 /* remove white background and shadow of infowindow */
@@ -80,4 +91,18 @@
 button .gm-ui-hover-effect {
     width: 40px;
     height: 40px;
+}
+
+.infowindow-description-container {
+    padding: 5px 0;
+}
+
+.restaurant-url {
+    text-decoration: none;
+    font-weight: 400;
+    width: 260px;
+}
+
+.restaurant-description, .hours {
+    width: 90%;
 }

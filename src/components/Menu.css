@@ -1,26 +1,9 @@
-.menu-map-container {
-    height: 100%;
-    width: 100%;
+.bm-list {
+    padding: 10px;
+    margin: auto;
 }
 
-.side-menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 20%;
-    /* min-width not originally here */
-    min-width: 200px;
-    height: 100vh;
-    background-color: #2c2f33;
-    /* background-color: #fff9c5; */
-    overflow: auto;
-    z-index: 10;
-  
-    /* transform: translateX(-100%); */
-    transition: transform 200ms linear;
-}
-
-.side-menu a {
+.bm-list li {
     display: block;
     color: #fff;
     padding: 16px;
@@ -28,13 +11,44 @@
     text-decoration: none;
 }
 
-.active-link {
-    background-color: #7289da;
+.bm-form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
-.side-menu a:hover:not(.active-link) {
-    background-color: #555;
-    color: #fff;
+.bm-form input {
+    width: 80%;
+    justify-self: center;
+    align-self: center;
+}
+
+/* button styles from https://www.bestcssbuttongenerator.com/ */
+.search-filter {
+    -moz-box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	-webkit-box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	box-shadow:inset 0px 1px 3px 0px #91b8b3;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #99aab5), color-stop(1, #7289da));
+	background:-moz-linear-gradient(top, #99aab5 5%, #7289da 100%);
+	background:-webkit-linear-gradient(top, #99aab5 5%, #7289da 100%);
+	background:-o-linear-gradient(top, #99aab5 5%, #7289da 100%);
+	background:-ms-linear-gradient(top, #99aab5 5%, #7289da 100%);
+	background:linear-gradient(to bottom, #99aab5 5%, #7289da 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#99aab5', endColorstr='#7289da',GradientType=0);
+	background-color:#99aab5;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:5px 11px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #2b665e;
 }
 
 .search-box {
@@ -49,8 +63,3 @@
     border: 1px solid #ccc;
     border-radius: 2px;
 }
-
-/* for revealing the menu */
-/* .side-menu-open {
-    transform: translateX(0);
-} */

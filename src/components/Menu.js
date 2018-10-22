@@ -1,73 +1,104 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Menu.css';
+import { stack as BurgerMenu } from 'react-burger-menu';
+import { bmStyles } from '../data/styles.js';
 
-export default class Menu extends Component {
-  state = {
-    value: '',
-    venues: [],
-    links: [],
-    activeLink: null,
+class Menu extends Component {
+
+  // required use of constructor due to updateWidth changing 
+  constructor(props) {
+    super(props)
+    this.updateWidth = this.updateWidth.bind(this);
+    this.state = {
+      isOpen: true,
+      query: '',
+    }
   }
 
-  onClick = (e, location, marker) => {
-    e.preventDefault();
-    e.target.classList.add('active-link');
-    this.setState({ activeLink: e.target })
 
-    // activate onMarkerClick in <MapContainer />
-    this.props.onVenueClick(location, marker)
+
+  updateQuery = (event) => {
+    this.setState({query: event.target.value})
   }
 
-  handleChange = (e) => {
-    const { venues } = this.state;
-    const filteredLinks = venues.filter(venue => {
-      return venue.name.toLowerCase().includes(e.target.value)
-    })
-    
-    this.setState({
-      value: e.target.value,
-      links: filteredLinks
+  // reset all markers in the map to default icons.
+  resetMarkerIcons = (mapMarkers, defaultIcon) => {
+    mapMarkers.forEach(mapMarker => {
+      mapMarker.setIcon(defaultIcon)
     })
   }
 
-  componentDidMount = () => {
-    const { locations } = this.props;
-    this.setState({ venues: locations, links: locations })
+  componentDidMount() {
+    this.updateWidth();
+    window.addEventListener("resize", this.updateWidth);
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    // removes active-link class
-    if (prevState.activeLink === null) {
-      // no active link
-    } else if (this.state.activeLink !== prevState.activeLink) {
-      prevState.activeLink.classList.remove('active-link');
+  updateWidth() {
+    if (window.innerWidth > 479) {
+      this.setState({ isOpen: true })
+    } else if (window.innerWidth < 479) {
+      this.setState({ isOpen: false })
     }
   }
 
   render() {
-    const { links } = this.state;
+    const { map, markers, mapMarkers, infowindow, defaultIcon, highlightedIcon, addMarkers, hideMarkers, populateInfoWindow } = this.props
+    const { query } = this.state
+    const filteredMapMarkers = mapMarkers.filter(mapMarker => mapMarker.name.toUpperCase().includes(query.toUpperCase()))
+    const filteredMarkers = markers.filter(marker => marker.name.toUpperCase().includes(query.toUpperCase()))
 
     return (
-      <div className='menu-map-container'>
-        <div className='side-menu'>
-          <input type="text" 
-          className='search-box'
-          placeholder="Search.."
-          onChange={this.handleChange}
-          value={this.state.value}/>
-              {links.map(location => {
-                return (
-                  <a 
-                  href={'/'} 
-                  key={location.venueId}
-                  onClick={(e) => this.onClick(e, location.marker, location.marker)}>
-                    {location.name}
-                  </a>
-                )
-              })}
-        </div>
-        {this.props.children}
-      </div>
+      <BurgerMenu
+      styles={bmStyles}
+      isOpen={this.state.isOpen}>
+          <form className='bm-form' onSubmit={(e) => {hideMarkers(mapMarkers); addMarkers(map, filteredMarkers, infowindow); e.preventDefault()}} >
+            <input 
+              className='search-box' 
+              aria-label='search' 
+              type='text' 
+              value={query} 
+              placeholder='Restaurant location' 
+              onChange={this.updateQuery} />
+            <input className='search-filter' 
+              type='submit' 
+              value='Filter' />
+        </form>
+        <ul
+        className='bm-list'>
+          {filteredMapMarkers.map(mapMarker => (
+            // aria-labelledby
+            // and labels
+            <li 
+              className='menu-item'
+              key={mapMarker.name} 
+              tabIndex='0' 
+              onClick={() => {
+                this.setState({ isOpen: false })
+                populateInfoWindow(mapMarker, infowindow, map)
+              }}
+              onMouseOver={() => mapMarker.setIcon(highlightedIcon)} onMouseOut={() => {mapMarker.setIcon(defaultIcon)}}
+              onFocus={() => {this.resetMarkerIcons(mapMarkers, defaultIcon); mapMarker.setIcon(highlightedIcon)}}
+              onKeyPress={(event) => {if (event.key === 'Enter') populateInfoWindow(mapMarker, infowindow, map)}} >
+              {mapMarker.name}
+            </li>
+          ))}
+        </ul>
+      </BurgerMenu>
     )
   }
 }
+
+Menu.propTypes = {
+  map: PropTypes.object.isRequired,
+  defaultIcon: PropTypes.object.isRequired,
+  highlightedIcon: PropTypes.object.isRequired,
+  infowindow: PropTypes.object.isRequired,
+  markers: PropTypes.array.isRequired,
+  mapMarkers: PropTypes.array.isRequired,
+  addMarkers: PropTypes.func.isRequired,
+  hideMarkers: PropTypes.func.isRequired,
+  populateInfoWindow: PropTypes.func.isRequired
+}
+
+export default Menu;
