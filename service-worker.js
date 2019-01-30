@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "neighborhood-map.hermanwhite.co/precache-manifest.160fd19857497eaa6d3d1a073a49340c.js"
+  "/neighborhood-map-react/precache-manifest.76609b150ad903cb47261716bd38eefa.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("neighborhood-map.hermanwhite.co/index.html", {
+workbox.routing.registerNavigationRoute("/neighborhood-map-react/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
