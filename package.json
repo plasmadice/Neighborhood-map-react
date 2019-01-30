@@ -2,7 +2,7 @@
   "name": "neighborhood-map-react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://plasmadice.github.io/neighborhood-map-react",
+  "homepage": "https://plasmadice.github.io/Neighborhood-map-react/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "prop-types": "^15.6.2",
