@@ -2,7 +2,9 @@
   "name": "neighborhood-map-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://plasmadice.github.io/neighborhood-map-react",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-burger-menu": "^2.5.4",
@@ -10,6 +12,8 @@
     "react-scripts": "2.0.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
